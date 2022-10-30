@@ -7,10 +7,9 @@
         public string Description { get; set; }
         public int LanguageId { get; set; }
         public int TotalPages { get; set; }
-        public int AuthorId { get; set; }
-        public int CategoryId { get; set; }
-        public Author Author { get; set; }
-        public Category Category { get; set; }
+        public string Author { get; set; }
+        public string Category { get; set; }
+        public string ImageUrl { get; set; }
         public Language Language { get; set; }
 
     }
