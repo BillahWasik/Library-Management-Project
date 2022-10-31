@@ -40,6 +40,33 @@ namespace Library_Management_Project.Repository
             }
             return Books;
         }
+
+        public List<BookModel> GetTopBooks()
+        {
+            var Books = new List<BookModel>();
+            var data = _db.TblBooks.Include(x => x.Language).Take(3).ToList();
+            if (data?.Any() == true)
+            {
+                foreach (var book in data)
+                {
+                    Books.Add(new BookModel
+                    {
+                        Id = book.Id,
+                        Title = book.Title,
+                        Author = book.Author,
+                        Category = book.Category,
+                        Description = book.Description,
+                        LanguageName = book.Language.Name,
+                        LanguageId = book.LanguageId,
+                        TotalPages = book.TotalPages,
+                        BookImageUrl = book.ImageUrl,
+                        BookModelPdfUrl = book.PdfUrl,
+
+                    });
+                }
+            }
+            return Books;
+        }
         public int AddNewBook(BookModel obj) 
         {
             var Book = new Book() 
