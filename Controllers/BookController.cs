@@ -42,23 +42,33 @@ namespace Library_Management_Project.Controllers
            var data= _db.GetAllBooks().ToList();
             return View(data);
         }
-        public IActionResult CreateBook()
+        public IActionResult CreateBook(bool IsSuccess = false)
         {
+            ViewBag.Success = IsSuccess;
             ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
             return View();
         }
         [HttpPost]
         public IActionResult CreateBook(BookModel obj)
         {
-            if(obj.imagefile != null) 
+            if (ModelState.IsValid)
             {
-                string path = "Image/Book/";
-                obj.BookImageUrl = UploadImage(path, obj.imagefile);
+                if (obj.imagefile != null)
+                {
+                    string path = "Image/Book/";
+                    obj.BookImageUrl = UploadImage(path, obj.imagefile);
+                }
+                ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+                _db.AddNewBook(obj);
+                return RedirectToAction(nameof(Index), new {IsSuccess = true});
             }
-            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
-            _db.AddNewBook(obj);
-                return RedirectToAction(nameof(Index));
+           return View();
         }
         
+        public IActionResult Details(int id) 
+        {
+           var data = _db.GetDetails(id);
+            return View(data);
+        }
     }
 }

@@ -17,25 +17,29 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10 offset-1">
-            <h2 class="display-4 text-center">Book List</h2>
-            <hr />
+        <div class="col-md-5">
+            <h2 class="display-4">Book List</h2>
         </div>
+        <div class="col-md-5">
+            <a asp-action="createbook" class="btn btn-primary text-light float-right">Add New Book</a>
+        </div>
+
          @foreach (var item in Model)
-       {
-           <div class="col-md-4">
+       { 
+         <div class="col-md-4">
             <div class="card-deck">
               <div class="card">
                 <img src="@item.BookImageUrl" class="card-img-top" alt="...">
                  <div class="card-body">
                     <h5 class="card-title">@item.Title</h5>
-              <p class="card-text">Description</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <p class="card-text">@item.Description</p>
+              <p class="card-text"><a asp-action="details" asp-route-id="@item.Id" class="btn btn-info text-light">View Details</a></p>
+                 </div>
+              </div>
             </div>
-          </div>
-        </div>
-    </div>
+           </div>
        }
         
+    </div>
 </div>
 

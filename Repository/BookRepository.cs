@@ -55,5 +55,32 @@ namespace Library_Management_Project.Repository
             _db.SaveChanges();
             return Book.Id;
         }
+
+        public BookModel GetDetails(int id) 
+        {
+           var data = _db.TblBooks.Include(x => x.Language).Where(x => x.Id == id).FirstOrDefault();
+
+            if (data != null) 
+            {
+                var book = new BookModel()
+                {
+                    Title = data.Title,
+                    Id = data.Id,
+                    Description = data.Description,
+                    Author = data.Author,
+                    Category = data.Category,
+                    TotalPages = data.TotalPages,
+                    BookImageUrl = data.ImageUrl,
+                    LanguageId = data.LanguageId,
+                    LanguageName = data.Language.Name
+
+
+                };
+                return book;
+
+            }
+            return null;
+
+        }
     }
 }
