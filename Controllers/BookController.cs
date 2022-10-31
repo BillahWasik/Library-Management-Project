@@ -60,7 +60,7 @@ namespace Library_Management_Project.Controllers
                 }
                 ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
                 _db.AddNewBook(obj);
-                return RedirectToAction(nameof(Index), new {IsSuccess = true});
+                return RedirectToAction(nameof(Index), new { IsSuccess = true });
             }
            return View();
         }
