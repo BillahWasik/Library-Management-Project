@@ -58,6 +58,13 @@ namespace Library_Management_Project.Controllers
                     string path = "Image/Book/";
                     obj.BookImageUrl = UploadImage(path, obj.imagefile);
                 }
+
+                if(obj.BookPdf != null) 
+                {
+                    string pdfpath = "Pdf/";
+                    obj.BookModelPdfUrl = UploadImage(pdfpath, obj.BookPdf);
+                }
+
                 ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
                 _db.AddNewBook(obj);
                 return RedirectToAction(nameof(Index), new { IsSuccess = true });

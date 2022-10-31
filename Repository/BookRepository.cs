@@ -32,7 +32,9 @@ namespace Library_Management_Project.Repository
                         LanguageName = book.Language.Name,
                         LanguageId = book.LanguageId,
                         TotalPages = book.TotalPages,
-                        BookImageUrl = book.ImageUrl
+                        BookImageUrl = book.ImageUrl,
+                        BookModelPdfUrl = book.PdfUrl,
+                        
                     });
                 }
             }
@@ -49,7 +51,8 @@ namespace Library_Management_Project.Repository
                ImageUrl = obj.BookImageUrl,
                LanguageId=obj.LanguageId,
                Title =obj.Title,
-               TotalPages=obj.TotalPages
+               TotalPages=obj.TotalPages,
+               PdfUrl = obj.BookModelPdfUrl
             };
             _db.TblBooks.Add(Book);
             _db.SaveChanges();
@@ -72,7 +75,8 @@ namespace Library_Management_Project.Repository
                     TotalPages = data.TotalPages,
                     BookImageUrl = data.ImageUrl,
                     LanguageId = data.LanguageId,
-                    LanguageName = data.Language.Name
+                    LanguageName = data.Language.Name,
+                    BookModelPdfUrl = data.PdfUrl,
 
 
                 };

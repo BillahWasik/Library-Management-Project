@@ -23,5 +23,9 @@ namespace Library_Management_Project.Models
         public string BookImageUrl { get; set; }
         [Required(ErrorMessage = "Please Select the Image of the Book")]
         public IFormFile imagefile { get; set; }
+        [Required(ErrorMessage = "Please Select the Pdf of the Book")]
+        public IFormFile BookPdf { get; set; }
+
+        public string BookModelPdfUrl { get; set; }
     }
 }
