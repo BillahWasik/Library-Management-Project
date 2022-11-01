@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Library_Management_Project.Models;
 
 namespace Library_Management_Project.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -10,5 +12,6 @@ namespace Library_Management_Project.Data
         }
         public DbSet<Book> TblBooks { get; set; }
         public DbSet<Language> TblLanguages { get; set; }
+        public DbSet<Library_Management_Project.Models.UserRegistration> UserRegistration { get; set; }
     }
 }
