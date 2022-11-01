@@ -16,5 +16,11 @@ namespace Library_Management_Project.Models
         [DataType(DataType.Password)]
         [Display(Name ="Confirm Password")]
         public string ConfirmPassword { get; set; }
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Enter your First Name")]
+        public string FirstName { get; set; }
+        [Required(ErrorMessage = "Enter your Last Name")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
     }
 }

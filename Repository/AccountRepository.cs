@@ -6,16 +6,18 @@ namespace Library_Management_Project.Repository
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<CustomizeUser> _userManager;
 
-        public AccountRepository(UserManager<IdentityUser> _userManager)
+        public AccountRepository(UserManager<CustomizeUser> _userManager)
         {
             this._userManager = _userManager;
         }
         public async Task<IdentityResult> CreateUserAsync(UserRegistration obj)
         {
-            var user = new IdentityUser()
+            var user = new CustomizeUser()
             {
+                FirstName = obj.FirstName,
+                LastName = obj.LastName,
                 Email = obj.Email,
                 UserName = obj.Email
                 

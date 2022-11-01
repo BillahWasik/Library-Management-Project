@@ -1,4 +1,5 @@
 using Library_Management_Project.Data;
+using Library_Management_Project.Models;
 using Library_Management_Project.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,7 @@ namespace Library_Management_Project
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Con")));
             services.AddScoped<IBookRepository, BookRepository>();
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<CustomizeUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<IAccountRepository, AccountRepository>();
         }
 
