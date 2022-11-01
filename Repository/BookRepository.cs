@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Library_Management_Project.Repository
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly ApplicationDbContext _db;
 
@@ -14,13 +14,13 @@ namespace Library_Management_Project.Repository
         {
             this._db = _db;
         }
-        public List<BookModel> GetAllBooks() 
+        public List<BookModel> GetAllBooks()
         {
-           var Books = new List<BookModel>();
+            var Books = new List<BookModel>();
             var data = _db.TblBooks.Include(x => x.Language).ToList();
-            if(data?.Any() == true) 
+            if (data?.Any() == true)
             {
-               foreach (var book in data) 
+                foreach (var book in data)
                 {
                     Books.Add(new BookModel
                     {
@@ -34,7 +34,7 @@ namespace Library_Management_Project.Repository
                         TotalPages = book.TotalPages,
                         BookImageUrl = book.ImageUrl,
                         BookModelPdfUrl = book.PdfUrl,
-                        
+
                     });
                 }
             }
@@ -67,30 +67,30 @@ namespace Library_Management_Project.Repository
             }
             return Books;
         }
-        public int AddNewBook(BookModel obj) 
+        public int AddNewBook(BookModel obj)
         {
-            var Book = new Book() 
+            var Book = new Book()
             {
-               Id =obj.Id,
-               Author = obj.Author,
-               Category=obj.Category,
-               Description=obj.Description,
-               ImageUrl = obj.BookImageUrl,
-               LanguageId=obj.LanguageId,
-               Title =obj.Title,
-               TotalPages=obj.TotalPages,
-               PdfUrl = obj.BookModelPdfUrl
+                Id = obj.Id,
+                Author = obj.Author,
+                Category = obj.Category,
+                Description = obj.Description,
+                ImageUrl = obj.BookImageUrl,
+                LanguageId = obj.LanguageId,
+                Title = obj.Title,
+                TotalPages = obj.TotalPages,
+                PdfUrl = obj.BookModelPdfUrl
             };
             _db.TblBooks.Add(Book);
             _db.SaveChanges();
             return Book.Id;
         }
 
-        public BookModel GetDetails(int id) 
+        public BookModel GetDetails(int id)
         {
-           var data = _db.TblBooks.Include(x => x.Language).Where(x => x.Id == id).FirstOrDefault();
+            var data = _db.TblBooks.Include(x => x.Language).Where(x => x.Id == id).FirstOrDefault();
 
-            if (data != null) 
+            if (data != null)
             {
                 var book = new BookModel()
                 {

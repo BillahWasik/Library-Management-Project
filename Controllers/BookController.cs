@@ -14,9 +14,9 @@ namespace Library_Management_Project.Controllers
     public class BookController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly BookRepository _db;
+        private readonly IBookRepository _db;
         private readonly IWebHostEnvironment _env;
-        public BookController(BookRepository _db , IWebHostEnvironment _env , ApplicationDbContext _context)
+        public BookController(IBookRepository _db , IWebHostEnvironment _env , ApplicationDbContext _context)
         {
             this._db = _db;
             this._env = _env;
