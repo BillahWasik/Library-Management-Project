@@ -84,6 +84,7 @@ namespace Library_Management_Project.Controllers
             var data = _db.GetAllBooks().ToList();
             return View(data);
         }
+        [Authorize]
         public IActionResult EditBook(int id , bool IsSuccess = false) 
         {
             ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
@@ -102,6 +103,7 @@ namespace Library_Management_Project.Controllers
             }
           return View();
         }
+        [Authorize]
         public IActionResult DeleteBook(int id, bool IsSuccess = false)
         {
             ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
