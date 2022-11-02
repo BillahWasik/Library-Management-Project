@@ -17,7 +17,7 @@ namespace Library_Management_Project.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IBookRepository _db;
         private readonly IWebHostEnvironment _env;
-        public BookController(IBookRepository _db , IWebHostEnvironment _env , ApplicationDbContext _context)
+        public BookController(IBookRepository _db, IWebHostEnvironment _env, ApplicationDbContext _context)
         {
             this._db = _db;
             this._env = _env;
@@ -35,13 +35,12 @@ namespace Library_Management_Project.Controllers
         }
         private IEnumerable<Language> DropdownData()
         {
-            var data=  _context.TblLanguages.ToList();
+            var data = _context.TblLanguages.ToList();
             return data;
         }
-        [Authorize]
         public IActionResult Index()
         {
-           var data= _db.GetAllBooks().ToList();
+            var data = _db.GetAllBooks().ToList();
             return View(data);
         }
         [Authorize]
@@ -62,7 +61,7 @@ namespace Library_Management_Project.Controllers
                     obj.BookImageUrl = UploadImage(path, obj.imagefile);
                 }
 
-                if(obj.BookPdf != null) 
+                if (obj.BookPdf != null)
                 {
                     string pdfpath = "Pdf/";
                     obj.BookModelPdfUrl = UploadImage(pdfpath, obj.BookPdf);
@@ -72,12 +71,12 @@ namespace Library_Management_Project.Controllers
                 _db.AddNewBook(obj);
                 return RedirectToAction(nameof(Index), new { IsSuccess = true });
             }
-           return View();
+            return View();
         }
-        
-        public IActionResult Details(int id) 
+
+        public IActionResult Details(int id)
         {
-           var data = _db.GetDetails(id);
+            var data = _db.GetDetails(id);
             return View(data);
         }
     }

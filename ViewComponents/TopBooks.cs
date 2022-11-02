@@ -10,10 +10,10 @@ namespace Library_Management_Project.ViewComponents
         {
             this._db = _db;
         }
-        public IViewComponentResult Invoke() 
+        public IViewComponentResult Invoke()
         {
-           var data = _db.GetTopBooks();
-          return View(data);
+            var data = _db.GetTopBooks();
+            return View(data);
         }
     }
 }

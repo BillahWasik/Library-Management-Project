@@ -2,10 +2,10 @@
 
 namespace Library_Management_Project.Models
 {
-    public class CustomizeUser : IdentityUser 
+    public class CustomizeUser : IdentityUser
     {
-        public string FirstName { get; set;}
-        public string LastName { get; set;}
-        
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
     }
 }

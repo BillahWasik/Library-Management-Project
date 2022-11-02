@@ -8,10 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Library_Management_Project
 {
@@ -41,7 +37,6 @@ namespace Library_Management_Project
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
-            services.ConfigureApplicationCookie(services => { services.LoginPath = "/Account/Login"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +54,9 @@ namespace Library_Management_Project
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
