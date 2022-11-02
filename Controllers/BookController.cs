@@ -38,6 +38,7 @@ namespace Library_Management_Project.Controllers
             var data=  _context.TblLanguages.ToList();
             return data;
         }
+        [Authorize]
         public IActionResult Index()
         {
            var data= _db.GetAllBooks().ToList();

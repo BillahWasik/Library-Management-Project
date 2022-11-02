@@ -41,6 +41,7 @@ namespace Library_Management_Project
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
+            services.ConfigureApplicationCookie(services => { services.LoginPath = "/Account/Login"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
