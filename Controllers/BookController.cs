@@ -79,5 +79,10 @@ namespace Library_Management_Project.Controllers
             var data = _db.GetDetails(id);
             return View(data);
         }
+        public IActionResult BookTable() 
+        {
+            var data = _db.GetAllBooks().ToList();
+            return View(data);
+        }
     }
 }
