@@ -57,6 +57,11 @@ namespace Library_Management_Project.Controllers
            
             return View(obj);
         }
+        public IActionResult Logout() 
+        {
+           _db.LogOut();
+            return RedirectToAction("Index","Home");
+        }
 
     }
 }

@@ -32,5 +32,10 @@ namespace Library_Management_Project.Repository
            var data = await _signInManager.PasswordSignInAsync(obj.Email,obj.Password, obj.RememberMe,false);
             return data;
         }
+
+        public async Task LogOut() 
+        {
+           await _signInManager.SignOutAsync();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Library_Management_Project.Repository
     {
         Task<IdentityResult> CreateUserAsync(UserRegistration obj);
         Task<SignInResult> LoginUser(SignInUser obj);
+        Task LogOut();
     }
 }

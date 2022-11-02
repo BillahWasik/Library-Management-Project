@@ -16,14 +16,7 @@
                     </li>
                 </ul>
             </div>
-            <div>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a asp-action="SignUp" asp-controller="Account" class="btn btn-success">SignUp</a>
-                        <a asp-controller="Account" asp-action="Login" class="btn btn-danger">Login</a>
-                    </li>
-                </ul>
-            </div>
+            <partial name="_LoginInfo" />
         </div>
     </nav>
 </header>
