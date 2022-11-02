@@ -84,7 +84,6 @@ namespace Library_Management_Project.Controllers
             var data = _db.GetAllBooks().ToList();
             return View(data);
         }
-
         public IActionResult EditBook(int id , bool IsSuccess = false) 
         {
             ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
@@ -99,9 +98,27 @@ namespace Library_Management_Project.Controllers
             if (obj != null) 
             {
                  _db.EditBook(obj);
-                return RedirectToAction(nameof(BookTable), new { IsSuccess = true});
+                return RedirectToAction(nameof(EditBook), new { IsSuccess = true});
             }
           return View();
+        }
+        public IActionResult DeleteBook(int id, bool IsSuccess = false)
+        {
+            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+            ViewBag.IsSuccess = IsSuccess;
+            var data = _db.GetDetails(id);
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult DeleteBook(BookModel obj)
+        {
+            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+            if (obj != null)
+            {
+                _db.DeleteBook(obj);
+                return RedirectToAction(nameof(DeleteBook), new { IsSuccess = true });
+            }
+            return View();
         }
     }
 }
