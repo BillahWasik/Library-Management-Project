@@ -84,5 +84,10 @@ namespace Library_Management_Project.Controllers
             var data = _db.GetAllBooks().ToList();
             return View(data);
         }
+
+        public IActionResult EditBook(int id) 
+        {
+            _db.
+        }
     }
 }

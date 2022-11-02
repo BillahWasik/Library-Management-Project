@@ -113,5 +113,25 @@ namespace Library_Management_Project.Repository
             return null;
 
         }
+
+        public int EditBook(BookModel obj)
+        {
+            var Book = new Book()
+            {
+                Id = obj.Id,
+                Author = obj.Author,
+                Category = obj.Category,
+                Description = obj.Description,
+                ImageUrl = obj.BookImageUrl,
+                LanguageId = obj.LanguageId,
+                Title = obj.Title,
+                TotalPages = obj.TotalPages,
+                PdfUrl = obj.BookModelPdfUrl
+            };
+            _db.TblBooks.Update(Book);
+            _db.SaveChanges();
+            return Book.Id;
+        }
+
     }
 }
