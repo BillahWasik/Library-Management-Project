@@ -1,6 +1,7 @@
 ﻿using Library_Management_Project.Data;
 using Library_Management_Project.Models;
 using Library_Management_Project.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,7 @@ namespace Library_Management_Project.Controllers
            var data= _db.GetAllBooks().ToList();
             return View(data);
         }
+        [Authorize]
         public IActionResult CreateBook(bool IsSuccess = false)
         {
             ViewBag.Success = IsSuccess;
