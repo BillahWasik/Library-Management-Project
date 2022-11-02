@@ -85,9 +85,23 @@ namespace Library_Management_Project.Controllers
             return View(data);
         }
 
-        public IActionResult EditBook(int id) 
+        public IActionResult EditBook(int id , bool IsSuccess = false) 
         {
-            _db.
+            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+            ViewBag.IsSuccess = IsSuccess;
+            var data = _db.GetDetails(id);
+           return View(data);
+        }
+        [HttpPost]
+        public IActionResult EditBook(BookModel obj) 
+        {
+            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+            if (obj != null) 
+            {
+                 _db.EditBook(obj);
+                return RedirectToAction(nameof(BookTable), new { IsSuccess = true});
+            }
+          return View();
         }
     }
 }

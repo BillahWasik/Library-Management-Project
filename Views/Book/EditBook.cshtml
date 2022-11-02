@@ -1,0 +1,88 @@
+﻿@using Library_Management_Project.Models
+@model BookModel
+@{
+    ViewData["Title"] = "EditBook";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h2 class="display-4 text-center">Edit Book</h2>
+            <hr />
+        </div>
+        <div class="col-md-10 offset-1">
+
+            @if (ViewBag.IsSuccess)
+            {
+                <div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Congratulations! </strong> You have Edited a book.
+
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            }
+
+            <form method="post" enctype="multipart/form-data" asp-controller="book" asp-action="editbook">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"> </textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author"></label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category"></label>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="LanguageId"></label>
+                    <select asp-for="LanguageId" class="dropdown-item" asp-items=ViewBag.Dropdown>
+                        <option value="">--Select Language--</option>
+                    </select>
+                    <span asp-validation-for="LanguageId" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPages"></label>
+                    <input asp-for="TotalPages" class="form-control" />
+                    <span asp-validation-for="TotalPages" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input asp-for="imagefile" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" asp-for="imagefile">Choose file</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input asp-for="BookPdf" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" asp-for="BookPdf">Choose file</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Edit Book" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

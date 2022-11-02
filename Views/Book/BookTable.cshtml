@@ -23,7 +23,7 @@
                 <td>@item.Title</td>
                 <td>@item.Author</td>
                 <td class="btn-split">
-                    <a class="btn btn-outline-success btn-light">Edit</a>
+                    <a asp-controller="Book" asp-action="EditBook" asp-route-id="@item.Id" class="btn btn-outline-success btn-light">Edit</a>
                     <a class="btn btn-outline-danger btn-light">Delete</a>
                 </td>
 
