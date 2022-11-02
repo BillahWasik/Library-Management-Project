@@ -9,6 +9,6 @@ namespace Library_Management_Project.Repository
         List<BookModel> GetAllBooks();
         BookModel GetDetails(int id);
         List<BookModel> GetTopBooks();
-        int EditBook(BookModel obj)
+        int EditBook(BookModel obj);
     }
 }
