@@ -7,5 +7,6 @@ namespace Library_Management_Project.Repository
     public interface IAccountRepository
     {
         Task<IdentityResult> CreateUserAsync(UserRegistration obj);
+        Task<SignInResult> LoginUser(SignInUser obj);
     }
 }

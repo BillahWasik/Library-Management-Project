@@ -37,5 +37,26 @@ namespace Library_Management_Project.Controllers
             }
             return View();
         }
+        public IActionResult Login() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(SignInUser obj)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _db.LoginUser(obj);
+                if (result.Succeeded) 
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("","Invalid Data Credentials");
+            }
+           
+            return View(obj);
+        }
+
     }
 }
