@@ -44,7 +44,7 @@ namespace Library_Management_Project.Repository
         public List<BookModel> GetTopBooks()
         {
             var Books = new List<BookModel>();
-            var data = _db.TblBooks.Include(x => x.Language).Take(3).ToList();
+            var data = _db.TblBooks.Include(x => x.Language).Take(4).ToList();
             if (data?.Any() == true)
             {
                 foreach (var book in data)
