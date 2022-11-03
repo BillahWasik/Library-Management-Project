@@ -15,7 +15,7 @@
     <img class="card-img-top" src=@(string.IsNullOrEmpty(Model.BookImageUrl) ? "Image Not found" : Model.BookImageUrl) alt="Card image" style="width:100%;height:300px">
     <div class="card-body">
         <h4 class="card-title">@(string.IsNullOrEmpty(Model.Title) ? "Title Not found" : Model.Title) </h4>
-        <p class="card-text">@(string.IsNullOrEmpty(Model.Description) ? "Description Not found" : Model.Description)</p>
-        <a  asp-controller="Book" asp-action="details" asp-route-id="@Model.Id" class="btn btn-primary stretched-link">View Details</a>
+        <p class="card-text float-left">@(string.IsNullOrEmpty(Model.Description) ? "Description Not found" : Model.Description)</p>
+        <a  asp-controller="Book" asp-action="details" asp-route-id="@Model.Id" class="btn btn-primary stretched-link float-left">View Details</a>
     </div>
 </div>
