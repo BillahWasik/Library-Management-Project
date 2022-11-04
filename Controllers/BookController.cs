@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,16 +24,16 @@ namespace Library_Management_Project.Controllers
             this._env = _env;
             this._context = _context;
         }
-        public string UploadImage(string FolderPath, IFormFile file)
-        {
-            FolderPath += file.FileName;
+        //public string UploadImage(string FolderPath, IFormFile file)
+        //{
+        //    FolderPath += file.FileName;
 
-            string FullPath = Path.Combine(_env.WebRootPath, FolderPath);
+        //    string FullPath = Path.Combine(_env.WebRootPath, FolderPath);
 
-            file.CopyTo(new FileStream(FullPath, FileMode.Create));
+        //    file.CopyTo(new FileStream(FullPath, FileMode.Create));
 
-            return "/" + FolderPath;
-        }
+        //    return "/" + FolderPath;
+        //}
         private IEnumerable<Language> DropdownData()
         {
             var data = _context.TblLanguages.ToList();
@@ -58,13 +59,47 @@ namespace Library_Management_Project.Controllers
                 if (obj.imagefile != null)
                 {
                     string path = "Image/Book/";
-                    obj.BookImageUrl = UploadImage(path, obj.imagefile);
+
+                    path += Guid.NewGuid().ToString() + "_" + obj.imagefile.FileName;
+
+                    string FullPath = Path.Combine(_env.WebRootPath, path);
+
+                    if(obj.BookImageUrl != null) 
+                    {
+                        var OldPath = Path.Combine(_env.WebRootPath, obj.BookImageUrl);
+
+                        if (System.IO.File.Exists(OldPath)) 
+                        {
+                           System.IO.File.Delete(OldPath);
+                        }
+                    }
+
+                    obj.imagefile.CopyTo(new FileStream(FullPath, FileMode.Create));
+
+                    obj.BookImageUrl = path;
                 }
 
                 if (obj.BookPdf != null)
                 {
                     string pdfpath = "Pdf/";
-                    obj.BookModelPdfUrl = UploadImage(pdfpath, obj.BookPdf);
+
+                    pdfpath += obj.BookPdf.FileName;
+
+                    string FullPath = Path.Combine(_env.WebRootPath, pdfpath);
+
+                    if (obj.BookModelPdfUrl != null)
+                    {
+                        var OldPath = Path.Combine(_env.WebRootPath, obj.BookModelPdfUrl);
+
+                        if (System.IO.File.Exists(OldPath))
+                        {
+                            System.IO.File.Delete(OldPath);
+                        }
+                    }
+
+                    obj.BookPdf.CopyTo(new FileStream(FullPath, FileMode.Create));
+
+                    obj.BookModelPdfUrl = pdfpath;
                 }
 
                 ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
@@ -93,15 +128,63 @@ namespace Library_Management_Project.Controllers
            return View(data);
         }
         [HttpPost]
-        public IActionResult EditBook(BookModel obj) 
+        public IActionResult EditBook(BookModel obj)
         {
-            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
-            if (obj != null) 
+            if (ModelState.IsValid)
             {
-                 _db.EditBook(obj);
-                return RedirectToAction(nameof(EditBook), new { IsSuccess = true});
+                if (obj.imagefile != null)
+                {
+                    string path = "Image/Book/";
+
+                    path += Guid.NewGuid().ToString() + "_" + obj.imagefile.FileName;
+
+                    string FullPath = Path.Combine(_env.WebRootPath, path);
+
+                    if (obj.BookImageUrl != null)
+                    {
+                        var OldPath = Path.Combine(_env.WebRootPath, obj.BookImageUrl);
+
+                        if (System.IO.File.Exists(OldPath))
+                        {
+                            System.IO.File.Delete(OldPath);
+                        }
+                    }
+
+                    obj.imagefile.CopyTo(new FileStream(FullPath, FileMode.Create));
+
+                    obj.BookImageUrl = path;
+                }
+
+                if (obj.BookPdf != null)
+                {
+                    string pdfpath = "Pdf/";
+
+                    pdfpath +=obj.BookPdf.FileName;
+
+                    string FullPath = Path.Combine(_env.WebRootPath, pdfpath);
+
+                    if (obj.BookModelPdfUrl != null)
+                    {
+                        var OldPath = Path.Combine(_env.WebRootPath, obj.BookModelPdfUrl);
+
+                        if (System.IO.File.Exists(OldPath))
+                        {
+                            System.IO.File.Delete(OldPath);
+                        }
+                    }
+
+                    obj.BookPdf.CopyTo(new FileStream(FullPath, FileMode.Create));
+
+                    obj.BookModelPdfUrl = pdfpath;
+                }
+                ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+
+                _db.EditBook(obj);
+                return RedirectToAction(nameof(EditBook), new { IsSuccess = true });
+
+               
             }
-          return View();
+            return View();
         }
         [Authorize]
         public IActionResult DeleteBook(int id, bool IsSuccess = false)
@@ -114,12 +197,14 @@ namespace Library_Management_Project.Controllers
         [HttpPost]
         public IActionResult DeleteBook(BookModel obj)
         {
-            ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
-            if (obj != null)
+            if (obj == null)
             {
+                ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+
                 _db.DeleteBook(obj);
                 return RedirectToAction(nameof(DeleteBook), new { IsSuccess = true });
             }
+
             return View();
         }
     }

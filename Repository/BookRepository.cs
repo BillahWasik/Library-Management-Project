@@ -116,7 +116,6 @@ namespace Library_Management_Project.Repository
 
         public int EditBook(BookModel obj)
         {
-            var OldData = _db.TblBooks.Include(x => x.Language).Where(x => x.Id == obj.Id).FirstOrDefault();
             var Book = new Book()
             {
                 Id = obj.Id,
