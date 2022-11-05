@@ -2,6 +2,7 @@ using Library_Management_Project.Data;
 using Library_Management_Project.Helpers;
 using Library_Management_Project.Models;
 using Library_Management_Project.Repository;
+using Library_Management_Project.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,7 @@ namespace Library_Management_Project
                 options.Password.RequireNonAlphanumeric = false;
             });
             services.AddScoped<IUserClaimsPrincipalFactory<CustomizeUser>, ApplicationClaims>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 ﻿using Library_Management_Project.Models;
+using Library_Management_Project.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -12,10 +13,13 @@ namespace Library_Management_Project.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+         
         }
 
         public IActionResult Index()
         {
+           
+
             return View();
         }
 

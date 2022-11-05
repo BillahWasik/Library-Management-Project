@@ -67,5 +67,30 @@ namespace Library_Management_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult ChangePassword()
+        {
+            return View();
+           
+        }
+        [HttpPost]
+        public async  Task<IActionResult> ChangePassword(ChangePasswordModel obj)
+        {
+            if (ModelState.IsValid) 
+            {
+             var result = await _db.ChangePassword(obj);
+                if (result.Succeeded) 
+                {
+                    ModelState.Clear();
+                    return View();
+                }
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+            }
+            return View(obj);
+
+        }
+
     }
 }

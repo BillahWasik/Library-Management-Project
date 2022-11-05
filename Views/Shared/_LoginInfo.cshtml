@@ -3,23 +3,13 @@
 
 @if (_db.IsSignedIn(User))
 {
-    @*<li class="nav-item dropdown">
-            <div>
-                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    Hello @User.Identity.Name
-                </a>
-            </div>
-
-            <div class="dropdown-menu">
-                <a asp-action="Logout" asp-controller="Account" class="dropdown-item">Log Out</a>
-            </div>
-        </li>*@
 
     <div class="dropdown dropdown">
         <a  class="btn btn-outline-success text-dark dropdown-toggle" data-toggle="dropdown">
             Hello @User.FindFirst("FirstName").Value
         </a>
         <div class="dropdown-menu">
+            <a asp-action="changepassword" asp-controller="Account" class="dropdown-item">Change Password</a>
             <a asp-action="Logout" asp-controller="Account" class="dropdown-item">Log Out</a>
         </div>
     </div>

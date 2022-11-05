@@ -1,6 +1,7 @@
 ﻿using Library_Management_Project.Data;
 using Library_Management_Project.Models;
 using Library_Management_Project.Repository;
+using Library_Management_Project.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,11 +20,13 @@ namespace Library_Management_Project.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IBookRepository _db;
         private readonly IWebHostEnvironment _env;
-        public BookController(IBookRepository _db, IWebHostEnvironment _env, ApplicationDbContext _context)
+        private readonly IUserService _service;
+        public BookController(IBookRepository _db, IWebHostEnvironment _env, ApplicationDbContext _context, IUserService _service)
         {
             this._db = _db;
             this._env = _env;
             this._context = _context;
+            this._service = _service;
         }
         private IEnumerable<Language> DropdownData()
         {
@@ -32,6 +35,8 @@ namespace Library_Management_Project.Controllers
         }
         public IActionResult Index()
         {
+            var UserId = _service.GetUserId();
+            var LoggedIn = _service.LoggedIn();
             var data = _db.GetAllBooks().ToList();
             return View(data);
         }

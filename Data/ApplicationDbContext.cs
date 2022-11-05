@@ -13,5 +13,6 @@ namespace Library_Management_Project.Data
         public DbSet<Book> TblBooks { get; set; }
         public DbSet<Language> TblLanguages { get; set; }
         public DbSet<Library_Management_Project.Models.UserRegistration> UserRegistration { get; set; }
+        public DbSet<Library_Management_Project.Models.ChangePasswordModel> ChangePasswordModel { get; set; }
     }
 }
