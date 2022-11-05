@@ -3,8 +3,15 @@
 @{
     ViewData["Title"] = "BookTable";
 }
-
-<h1>BookTable</h1>
+<div class="row">
+    <div class="col-6">
+        <h1 class="display-4">BookTable</h1>
+    </div>
+    <div class="col-6">
+        <a asp-action="CreateBook" class="btn btn-outline-primary btn-light float-right">Create New Book</a>
+    </div>
+   
+</div>
 
 <table class="table table-bordered">
     <thead>
@@ -23,7 +30,6 @@
                 <td>@item.Title</td>
                 <td>@item.Author</td>
                 <td class="btn-split">
-                    <a asp-action="CreateBook" class="btn btn-outline-primary btn-light">Add</a>
                     <a asp-controller="Book" asp-action="EditBook" asp-route-id="@item.Id" class="btn btn-outline-success btn-light">Edit</a>
                     <a asp-controller="Book" asp-action="DeleteBook" asp-route-id="@item.Id" class="btn btn-outline-danger btn-light">Delete</a>
                 </td>

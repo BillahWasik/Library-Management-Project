@@ -17,7 +17,7 @@
 
     <div class="dropdown dropdown">
         <a  class="btn btn-outline-success text-dark dropdown-toggle" data-toggle="dropdown">
-            Hello @User.Identity.Name
+            Hello @User.FindFirst("FirstName").Value
         </a>
         <div class="dropdown-menu">
             <a asp-action="Logout" asp-controller="Account" class="dropdown-item">Log Out</a>
