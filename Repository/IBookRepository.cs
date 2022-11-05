@@ -10,6 +10,6 @@ namespace Library_Management_Project.Repository
         BookModel GetDetails(int id);
         List<BookModel> GetTopBooks();
         int EditBook(BookModel obj);
-        int DeleteBook(BookModel obj);
+        BookModel DeleteBook(BookModel obj);
     }
 }

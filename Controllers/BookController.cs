@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Library_Management_Project.Controllers
 {
@@ -24,16 +25,6 @@ namespace Library_Management_Project.Controllers
             this._env = _env;
             this._context = _context;
         }
-        //public string UploadImage(string FolderPath, IFormFile file)
-        //{
-        //    FolderPath += file.FileName;
-
-        //    string FullPath = Path.Combine(_env.WebRootPath, FolderPath);
-
-        //    file.CopyTo(new FileStream(FullPath, FileMode.Create));
-
-        //    return "/" + FolderPath;
-        //}
         private IEnumerable<Language> DropdownData()
         {
             var data = _context.TblLanguages.ToList();
@@ -197,15 +188,33 @@ namespace Library_Management_Project.Controllers
         [HttpPost]
         public IActionResult DeleteBook(BookModel obj)
         {
-            if (obj == null)
+            if (obj.BookImageUrl != null)
             {
-                ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+                var OldPath = Path.Combine(_env.WebRootPath, obj.BookImageUrl);
 
-                _db.DeleteBook(obj);
-                return RedirectToAction(nameof(DeleteBook), new { IsSuccess = true });
+                if (System.IO.File.Exists(OldPath))
+                {
+                    System.IO.File.Delete(OldPath);
+                }
             }
 
-            return View();
+            if (obj.BookModelPdfUrl != null)
+                {
+                    var OldPath = Path.Combine(_env.WebRootPath, obj.BookModelPdfUrl);
+
+                    if ( System.IO.File.Exists(OldPath))
+                    {
+                        System.IO.File.Delete(OldPath);
+                    }
+                }
+
+                ViewBag.Dropdown = new SelectList(DropdownData(), "Id", "Name");
+
+                 _db.DeleteBook(obj);
+                return RedirectToAction(nameof(Index), new { IsSuccess = true });
+            
+
+            return View(obj);
         }
     }
 }

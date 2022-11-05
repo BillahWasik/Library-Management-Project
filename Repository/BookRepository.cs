@@ -133,7 +133,7 @@ namespace Library_Management_Project.Repository
             return Book.Id;
         }
 
-        public int DeleteBook(BookModel obj)
+        public BookModel DeleteBook(BookModel obj)
         {
             var Book = new Book()
             {
@@ -149,7 +149,7 @@ namespace Library_Management_Project.Repository
             };
             _db.TblBooks.Remove(Book);
             _db.SaveChanges();
-            return Book.Id;
+            return obj;
         }
 
 
