@@ -10,11 +10,11 @@ namespace Library_Management_Project.Models
         public string Email { get; set; }
         [Required(ErrorMessage = "Enter your Password")]
         [DataType(DataType.Password)]
-        [Compare("ConfirmPassword", ErrorMessage = "Password Do not Match")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Please enter your password Again")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password Mismatch!")]
         public string ConfirmPassword { get; set; }
         [Display(Name = "First Name")]
         [Required(ErrorMessage = "Enter your First Name")]

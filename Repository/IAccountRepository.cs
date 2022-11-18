@@ -10,5 +10,6 @@ namespace Library_Management_Project.Repository
         Task<SignInResult> LoginUser(SignInUser obj);
         Task LogOut();
         Task<IdentityResult> ChangePassword(ChangePasswordModel obj);
+        Task LoggedIn(UserRegistration obj);
     }
 }

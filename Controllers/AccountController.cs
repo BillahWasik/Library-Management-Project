@@ -1,5 +1,6 @@
 ﻿using Library_Management_Project.Models;
 using Library_Management_Project.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,10 +10,12 @@ namespace Library_Management_Project.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountRepository _db;
+        private readonly SignInManager<CustomizeUser> _signInManager;
 
-        public AccountController(IAccountRepository _db)
+        public AccountController(IAccountRepository _db , SignInManager<CustomizeUser> _signInManager)
         {
             this._db = _db;
+            this._signInManager = _signInManager;
         }
         public IActionResult SignUp()
         {
@@ -25,13 +28,14 @@ namespace Library_Management_Project.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _db.CreateUserAsync(obj);
-                if (!result.Succeeded)
+                if (result.Succeeded)
                 {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("", item.Description);
-                    }
-                    return View(obj);
+                   await _db.LoggedIn(obj);
+                    return RedirectToAction("Index","Home");
+                }
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
                 }
                 ModelState.Clear();
             }

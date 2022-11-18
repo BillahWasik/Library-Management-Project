@@ -48,5 +48,16 @@ namespace Library_Management_Project.Repository
             var user =  await _userManager.FindByIdAsync(UserId);
            return await _userManager.ChangePasswordAsync(user ,obj.CurrentPassword,obj.NewPassword);
         }
+        public async Task LoggedIn(UserRegistration obj)
+        {
+            var User = new CustomizeUser()
+            {
+                FirstName = obj.FirstName,
+                LastName = obj.LastName,
+                Email = obj.Email,
+                UserName = obj.Email
+            };
+            await _signInManager.SignInAsync(User, false);
+        }
     }
 }
